@@ -34,7 +34,7 @@ class Sidebar extends Component {
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink"></i>
           </div>
-          <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+          <div className="sidebar-brand-text mx-3">HotSpot <sup>2</sup></div>
         </a>
 
         {/* <!-- Divider --> */}
@@ -52,37 +52,74 @@ class Sidebar extends Component {
 
         {/* <!-- Heading --> */}
         <div className="sidebar-heading">
-          Interface
+          Panel
         </div>
 
-        {/* <!-- Nav Item - Pages Collapse Menu --> */}
+
+        {/* <!-- Nav Item - Orders Collapse Menu --> */}
         <li className="nav-item">
-          <a className='nav-link collapsed' href="#" data-toggle="collapse" data-target="#collapseTwo"  aria-controls="collapseTwo">
-            <i className="fas fa-fw fa-cog"></i>
-            <span>Components</span>
+          <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseOrders">
+          <i className="fas fa-fw fa-table"></i>
+            <span>Ordenes</span>
           </a>
-          <div id="collapseTwo" className='collapse' aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div id="collapseOrders" className="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Custom Components:</h6>
-              <a className="collapse-item" href="buttons.html">Buttons</a>
-              <Link className="collapse-item" to="/cards">Cards</Link>
+              <h6 className="collapse-header">Ordenes</h6>
+              <a className="collapse-item" href="utilities-color.html">Ingresar Orden</a>
+              <a className="collapse-item" href="orders">Ver Listado</a>
+              <a className="collapse-item" href="utilities-animation.html">Anotaciones</a>
             </div>
           </div>
         </li>
 
-        {/* <!-- Nav Item - Utilities Collapse Menu --> */}
-        <li className="nav-item">
-          <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-            <i className="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+{/* <!-- Nav Item - Facturation Collapse Menu --> */}
+<li className="nav-item">
+          <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFacturation" aria-expanded="true" aria-controls="collapseFacturation">
+          <i className="fas fa-fw fa-table"></i>
+            <span>Facturación</span>
           </a>
-          <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div id="collapseFacturation" className="collapse" aria-labelledby="headingFacturation" data-parent="#accordionSidebar">
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Custom Utilities:</h6>
-              <a className="collapse-item" href="utilities-color.html">Colors</a>
-              <a className="collapse-item" href="utilities-border.html">Borders</a>
-              <a className="collapse-item" href="utilities-animation.html">Animations</a>
-              <a className="collapse-item" href="utilities-other.html">Other</a>
+              <h6 className="collapse-header">Facturación</h6>
+              <a className="collapse-item" href="utilities-color.html">Registrar Venta</a>
+              <a className="collapse-item" href="utilities-border.html">Ver Ventas</a>
+              <a className="collapse-item" href="utilities-animation.html">Cobros y adelantos</a>
+              <a className="collapse-item" href="utilities-border.html">Devolución</a>
+
+            </div>
+          </div>
+        </li>
+
+{/* <!-- Nav Item - Cash  Collapse Menu --> */}
+<li className="nav-item">
+          <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCash" aria-expanded="true" aria-controls="collapseCash">
+          <i className="fas fa-fw fa-table"></i>
+            <span>Caja</span>
+          </a>
+          <div id="collapseCash" className="collapse" aria-labelledby="headingCash" data-parent="#accordionSidebar">
+            <div className="bg-white py-2 collapse-inner rounded">
+              <h6 className="collapse-header">Ordenes</h6>
+              <a className="collapse-item" href="utilities-color.html">Ingreso Caja</a>
+              <a className="collapse-item" href="utilities-border.html">Egreso Caja</a>
+              <a className="collapse-item" href="utilities-border.html">Retiro Caja</a>
+              <a className="collapse-item" href="utilities-animation.html">Apertura Caja</a>
+              <a className="collapse-item" href="utilities-animation.html">Cierre Caja</a>
+            </div>
+          </div>
+        </li>
+
+          {/* <!-- Nav Item - Products Collapse Menu --> */}
+          <li className="nav-item">
+          <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
+          <i className="fas fa-fw fa-table"></i>
+            <span>Artículos</span>
+          </a>
+          <div id="collapseProducts" className="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+            <div className="bg-white py-2 collapse-inner rounded">
+              <h6 className="collapse-header">Ordenes</h6>
+              <a className="collapse-item" href="utilities-color.html">Ingresar Artículos</a>
+              <a className="collapse-item" href="utilities-color.html">Modificar Artículos</a>
+              <a className="collapse-item" href="utilities-border.html">Ver Listado</a>
             </div>
           </div>
         </li>
@@ -92,23 +129,25 @@ class Sidebar extends Component {
 
         {/* <!-- Heading --> */}
         <div className="sidebar-heading">
-          Addons
+          Configuraciones
         </div>
 
-        {/* <!-- Nav Item - Charts --> */}
+        {/* <!-- Nav Item - Users Config --> */}
         <li className="nav-item">
-          <Link className="nav-link" to="/charts">
+          <Link className="nav-link" to="/users">
             <i className="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></Link>
+            <span>Usuarios</span></Link>
         </li>
 
-        {/* <!-- Nav Item - Tables --> */}
+        {/* <!-- Nav Item - Users Config --> */}
+
         <li className="nav-item">
-          <a className="nav-link" href="tables.html">
-            <i className="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+          <Link className="nav-link" to="/params">
+            <i className="fas fa-fw fa-chart-area"></i>
+            <span>Cotización</span></Link>
         </li>
 
+    
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />
 

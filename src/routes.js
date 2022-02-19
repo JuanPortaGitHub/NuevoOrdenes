@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 
 //Pages
@@ -7,8 +7,10 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import Cards from "./pages/Cards";
-import Charts from "./pages/Charts";
+import Orders from "./pages/Orders";
+import createInvoice from "./pages/Facturation/CreateInvoice";
+import CreateOrder from "./pages/Orders/CreateOrder";
+import Clients from "./pages/Clients";
 
 
 const Routes = () => (
@@ -17,8 +19,11 @@ const Routes = () => (
             <Route exact path="/" component={SignIn} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/cards" component={Cards} />
-            <Route path="/charts" component={Charts} />
+            <Route path="/orders" component={Orders} />
+            <Route path="/newinvoice" component={createInvoice} />
+            <Route path="/neworder" component={CreateOrder} />
+            <Route path="/clients" component={Clients} />
+
             <Route path="*" component={NotFound} />
         </Switch>
     </BrowserRouter>
