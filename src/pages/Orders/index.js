@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { url } from "../../api/axios";
 // import { getOrders } from "../../api/services/ordersAxios";
+import { bindActionCreators } from "redux";
+import * as actionCreators from "../../redux/action-creators/index"
 
 import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
@@ -12,20 +15,28 @@ export const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
+  const state = useSelector((state) => state);
+  console.log('state', state)
+
+  const dispatch = useDispatch()
+  const AC = bindActionCreators(actionCreators, dispatch)
+  console.log('Action Creators', AC)
+
+  const getOrders = () => {
+    setLoading(true);
+    axios
+      .get(url)
+      .then((res) => {
+        const { orders } = res.data;
+        setOrders(orders.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
   useEffect(() => {
-    const getOrders = () => {
-      setLoading(true);
-      axios
-        .get(url)
-        .then((res) => {
-          const { orders } = res.data;
-          setOrders(orders.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          return error;
-        });
-    };
+    
     getOrders();
   }, []);
 
@@ -54,15 +65,15 @@ export const Orders = () => {
               {loading ? (
                 <>
                   <h2>Cargando Ordenes</h2>
-                  <div class="spinner-border m-5" role="status">
-                    <span class="sr-only">Cargando Ordenes...</span>
+                  <div className="spinner-border m-5" role="status">
+                    <span className="sr-only">Cargando Ordenes...</span>
                   </div>
                 </>
               ) : (
-                <div className="row">
+                <div className="table-responsive">
                   <table
                     className="table table-striped"
-                    style={{ margin: "2vw" }}
+                    // style={{ margin: "2vw" }}
                   >
                     <thead>
                       <tr>

@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
+import { clientFormFields } from "../../interface/client";
+import { invoiceFormFields } from "../../interface/invoice";
 
 export const CreateInvoice = () => {
   // const validationSchema = ...
@@ -79,167 +81,27 @@ export const CreateInvoice = () => {
                             </div>
                           </div>
 
-                          <div className="form-group row">
-                            <label
-                              id="apellidocliente"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              Apellido
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("apellidocliente")}
-                                name="apellidocliente"
-                                id="apellidocliente"
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="Apellido ..."
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div
-                            className="form-group row"
-                            style={{ display: "none" }}
-                          >
-                            <label
-                              name="idclient"
-                              id="idclient"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              ID
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("idclient")}
-                                name="idclient"
-                                id="idclient"
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="ID ..."
-                              />
-                            </div>
-                          </div>
-
-                          <div className="form-group row">
-                            <label
-                              id="nombrecliente"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              Nombre
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("nombrecliente")}
-                                name="nombrecliente"
-                                id="nombrecliente"
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="Nombre ..."
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row">
-                            <label
-                              id="celularcliente"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              Celular
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("celularcliente")}
-                                name="celularcliente"
-                                id="celularcliente"
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="Celular ..."
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row">
-                            <label
-                              id="condivaclient"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              Condicion IVA
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("condivaclient")}
-                                name="condivaclient"
-                                id="condivaclient"
-                                type="text"
-                                className="form-control form-control-sm"
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row">
-                            <label
-                              id="cuitcliente"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              CUIT / DNI
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("cuitcliente")}
-                                name="cuitcliente"
-                                id="cuitcliente"
-                                type="text"
-                                className="form-control form-control-sm"
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
-
-                          <div className="form-group row">
-                            <label
-                              id="telefonocliente"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              Telefono
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("telefonocliente")}
-                                name="telefonocliente"
-                                id="telefonocliente"
-                                type="text"
-                                className="form-control form-control-sm"
-                                placeholder="Telefono ..."
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row">
-                            <label
-                              id="mailcliente"
-                              className="col-sm-2 col-form-label form-control-sm"
-                            >
-                              Mail
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("mailcliente")}
-                                name="mailcliente"
-                                id="mailcliente"
-                                type="email"
-                                className="form-control form-control-sm"
-                                placeholder="Mail ..."
-                                readOnly
-                              />
-                            </div>
-                          </div>
+                          {clientFormFields.map((client, i) => {
+                            return (
+                              <div className="form-group row" key={i}>
+                                <label className={client.labelClassName}>
+                                  {client.label}
+                                </label>
+                                <div className="col-sm-10">
+                                  <input
+                                    {...register(client.id)}
+                                    name={client.name}
+                                    id={client.id}
+                                    type={client.type}
+                                    className={client.inputClassName}
+                                    placeholder={client.placeholder}
+                                    readOnly={client.readOnly}
+                                    required={client.required}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
 
                           {/* <!-- Boton modal para edicion de equipo --> */}
                           <div className="row">
@@ -274,40 +136,53 @@ export const CreateInvoice = () => {
                         {/* <!-- Seccion contenido Cliente --> */}
 
                         <div className="card-body">
-                          <div className="form-group row">
-                            <label className="col-sm-2 col-form-label form-control-sm">
-                              SUCURSAL
-                            </label>
-                            <div className="col-sm-10">
-                              <select
-                                {...register("local")}
-                                name="local"
-                                id="local"
-                                className="form-control form-control-sm"
-                                required
-                              >
-                                <option value=""></option>
-                                {/* @foreach ($tipoequipos as $tipoequipo)
-                                        <option value="{{ $tipoequipo['id'] }}">{{ $tipoequipo['tipodeequipo'] }}</option>
-                                    @endforeach */}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="form-group row">
-                            <label className="col-sm-2 col-form-label form-control-sm">
-                              Fecha Factura
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                {...register("fechafactura")}
-                                name="fechafactura"
-                                id="fechafactura"
-                                type="text"
-                                className="form-control form-control-sm"
-                                required
-                              />
-                            </div>
-                          </div>
+                          {invoiceFormFields.map((invoice, i) => {
+                            return invoice.component === "select" ? (
+                              <div className="form-group row" key={i}>
+                                <label className={invoice.labelClassName}>
+                                  {invoice.label}
+                                </label>
+                                <div className="col-sm-10">
+                                  <select
+                                    {...register(invoice.id)}
+                                    name={invoice.name}
+                                    id={invoice.id}
+                                    type={invoice.type}
+                                    className={invoice.inputClassName}
+                                    placeholder={invoice.placeholder}
+                                    readOnly={invoice.readOnly}
+                                    required={invoice.required}
+                                  >
+                                    {invoice.optionsSelect.map((option, i) =>{
+                                      return (
+                                      <option key={i} value={option.value}>{option.text}</option>
+                                      )
+                                    })}
+                                  </select>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="form-group row" key={i}>
+                                <label className={invoice.labelClassName}>
+                                  {invoice.label}
+                                </label>
+                                <div className="col-sm-10">
+                                  <input
+                                    {...register(invoice.id)}
+                                    name={invoice.name}
+                                    id={invoice.id}
+                                    type={invoice.type}
+                                    className={invoice.inputClassName}
+                                    placeholder={invoice.placeholder}
+                                    readOnly={invoice.readOnly}
+                                    required={invoice.required}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
+
+                          
                           <div className="form-group row">
                             <label className="col-sm-2 col-form-label form-control-sm">
                               Factura Interna Nro.
@@ -353,22 +228,7 @@ export const CreateInvoice = () => {
                                 />
                               </div>
                             </div>
-                          </div>
-                          <div className="form-group row">
-                            <label className="col-sm-2 col-form-label form-control-sm">
-                              Dolar
-                            </label>
-                            <div className="col-sm-10">
-                              <input
-                                name="cotizaciondolar"
-                                id="cotizaciondolar"
-                                type="text"
-                                className="form-control form-control-sm"
-                                readOnly
-                                required
-                              />
-                            </div>
-                          </div>
+                          </div>                         
                         </div>
                       </div>
                     </div>
@@ -377,14 +237,127 @@ export const CreateInvoice = () => {
                   <div className="row" style={{ marginBottom: "20px" }}>
                     <div className="col-sm-12 .col-xs-12">
                       <div className="card">
-                        <div className="card-header">
+                        <div
+                          className="card-header"
+                          style={{ backgroundColor: "#00BFFF", color: "white" }}
+                        >
                           <h3 className="card-title">Articulos</h3>
 
                           <div className="card-tools"></div>
                         </div>
                         {/* <!-- /.card-header --> */}
                         <div className="card-body">
-                          <div className="row">dasda</div>
+                          <div className="table-responsive">
+                            <table
+                              className="table table-hover text-nowrap"
+                              id="productosfactura"
+                            >
+                              <thead>
+                                <tr>
+                                  <th>N</th>
+                                  <th>COD</th>
+                                  <th>ARTICULO</th>
+                                  <th>DESCRIPCION</th>
+                                  <th>CANTIDAD</th>
+                                  <th>PRECIO</th>
+                                  <th>DTO</th>
+                                  <th>SUBTOTAL</th>
+                                  <th>IVA %</th>
+                                  <th>IVA21</th>
+                                  <th>IVA105</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr id="filaproductoagregado">
+                                  <td id="nroproducto">1</td>
+                                  <td>
+                                    <input
+                                      id="busquedaproducto1"
+                                      name="busquedaproducto[]"
+                                      className="form-control form-control-sm"
+                                      type="text"
+                                      placeholder="Busca por cod o descripcion"
+                                      required
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      id="articuloproducto1"
+                                      name="articuloproducto[]"
+                                      className="form-control form-control-sm"
+                                      type="text"
+                                      readOnly
+                                      required
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      id="descripcionproducto1"
+                                      name="descripcionproducto[]"
+                                      className="form-control form-control-sm"
+                                      type="text"
+                                      required
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      id="cantprod1"
+                                      name="cantprod[]"
+                                      className="form-control form-control-sm"
+                                      type="number"
+                                      required
+                                    />
+                                  </td>
+                                  <td style={{ display: "none" }}>
+                                    <input
+                                      id="idprod1"
+                                      name="idprod[]"
+                                      type="text"
+                                      className="form-control"
+                                      placeholder="ID ..."
+                                    />
+                                  </td>
+                                  <td>
+                                    <div className="input-group mb-3">
+                                      <div className="input-group-prepend">
+                                        <span className="input-group-text form-control-sm">
+                                          $
+                                        </span>
+                                      </div>
+                                      <input
+                                        id="precioprod1"
+                                        name="precioprod[]"
+                                        className="form-control form-control-sm"
+                                        type="number"
+                                        step=".01"
+                                        required
+                                      />
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div className="input-group mb-3">
+                                      <input
+                                        id="descprod1"
+                                        name="descprod[]"
+                                        className="form-control form-control-sm"
+                                        type="text"
+                                        required
+                                      />
+                                      <div className="input-group-append">
+                                        <span className="input-group-text form-control-sm">
+                                          %
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td id="subtotalarticulo1"></td>
+                                  <td id="ivaprod1"></td>
+                                  <td id="valorivaprod211"></td>
+                                  <td id="valorivaprod1051"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
 
                           <div
                             className="row"

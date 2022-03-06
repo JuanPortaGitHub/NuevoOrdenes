@@ -3,7 +3,7 @@ import React from 'react';
 export const statusBadge = (status) => {
     switch (status) {
         case 'Abierto':
-            return <h5> <h5><span className="badge bg-primary" style={{color: 'black'}}>Abierto</span></h5></h5>
+            return <h5> <span className="badge bg-primary" style={{color: 'black'}}>Abierto</span></h5>
         case 'Urgente':
             return <h5> <span className="badge bg-danger" style={{color: 'black'}}>Urgente</span></h5>
         case 'Presupuestar':

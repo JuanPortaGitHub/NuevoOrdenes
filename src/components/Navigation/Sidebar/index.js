@@ -3,26 +3,26 @@ import {Link} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { clickMenuOpen } from '../../../redux/actions';
+import { clickMenuOpen } from '../../../redux/action-creators';
 
 class Sidebar extends Component {
-  // componentDidMount() {
-  //   document.getElementById('body').className = 'page-top';
-  // }
-  // state = {
-  //   sidebarToggled: false,
-  // }
+  componentDidMount() {
+    document.getElementById('body').className = 'page-top';
+  }
+  state = {
+    sidebarToggled: false,
+  }
 
-  // handleSideBarToggle() {
-  //   if (this.sidebarToogled === true) {
-  //     this.setState({ sidebarToggled: !this.state.sidebarToggled });
-  //     document.getElementById('body').className = 'page-top sidebar-toggled';
-  //   } else {
-  //     this.setState({ sidebarToggled: !this.state.sidebarToggled });
-  //     document.getElementById('body').className = 'page-top';
-  //   }
+  handleSideBarToggle() {
+    if (this.sidebarToogled === true) {
+      this.setState({ sidebarToggled: !this.state.sidebarToggled });
+      document.getElementById('body').className = 'page-top sidebar-toggled';
+    } else {
+      this.setState({ sidebarToggled: !this.state.sidebarToggled });
+      document.getElementById('body').className = 'page-top';
+    }
 
-  // }
+  }
 
   render() {
     const { clickMenuOpen, toggled } = this.props;
@@ -65,7 +65,7 @@ class Sidebar extends Component {
           <div id="collapseOrders" className="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Ordenes</h6>
-              <a className="collapse-item" href="utilities-color.html">Ingresar Orden</a>
+              <a className="collapse-item" href="neworder">Ingresar Orden</a>
               <a className="collapse-item" href="orders">Ver Listado</a>
               <a className="collapse-item" href="utilities-animation.html">Anotaciones</a>
             </div>
@@ -81,7 +81,7 @@ class Sidebar extends Component {
           <div id="collapseFacturation" className="collapse" aria-labelledby="headingFacturation" data-parent="#accordionSidebar">
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Facturación</h6>
-              <a className="collapse-item" href="utilities-color.html">Registrar Venta</a>
+              <a className="collapse-item" href="newinvoice">Registrar Venta</a>
               <a className="collapse-item" href="utilities-border.html">Ver Ventas</a>
               <a className="collapse-item" href="utilities-animation.html">Cobros y adelantos</a>
               <a className="collapse-item" href="utilities-border.html">Devolución</a>

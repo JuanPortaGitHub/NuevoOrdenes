@@ -1,4 +1,4 @@
-import { CLICK_OPEN_MENU } from "../actions/ActionTypes";
+import { CLICK_OPEN_MENU } from "../action-creators/ActionTypes";
 
 const initialState = {
     menuOpen: false

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { clickMenuOpen } from '../../../redux/actions';
+import { clickMenuOpen } from '../../../redux/action-creators';
 
 class Topbar extends Component {
     render() {
