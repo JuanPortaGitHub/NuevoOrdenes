@@ -2,13 +2,16 @@ import axios from "axios";
 import { url } from "../axios";
 import { bindActionCreators } from "redux";
 import * as actionCreators from "../../redux/action-creators/index"
-
-const AC = bindActionCreators(actionCreators, dispatch)
-  console.log('Action Creators', AC)
+import { useDispatch } from "react-redux";
 
 
 export const  getOrders = async () => {    
-    
+  
+  const dispatch = useDispatch()
+  const AC = bindActionCreators(actionCreators, dispatch)
+  console.log('Action Creators', AC)
+
+
   await axios
     .get(url)
     .then((res) => {

@@ -34,3 +34,13 @@ console.log(data)
         })
     }
 }
+
+export const FETCH_ORDERS = (data) =>{
+    console.log(data)
+        return (dispatch) =>{
+            dispatch({
+                type: "FETCH_ORDERS",
+                payload: data
+            })
+        }
+    }

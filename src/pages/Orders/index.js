@@ -1,11 +1,10 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { url } from "../../api/axios";
 // import { getOrders } from "../../api/services/ordersAxios";
 import { bindActionCreators } from "redux";
 import * as actionCreators from "../../redux/action-creators/index"
-
 import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
@@ -25,7 +24,7 @@ export const Orders = () => {
       .get(url)
       .then((res) => {
         const { orders } = res.data;
-        dispatch(AC.CREATE_ORDERS_DATA(orders.data));        
+        dispatch(AC.FETCH_ORDERS(orders.data));        
       })
       .catch((error) => {
         return error;
