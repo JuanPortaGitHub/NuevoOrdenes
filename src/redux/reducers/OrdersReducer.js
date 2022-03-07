@@ -1,12 +1,15 @@
+import { CREATE_ORDERS_DATA } from "../action-creators/ActionTypes";
+
 const initialState = {
+  loading: true,
   orders: {},
 };
 
 export const OrdersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "addorder":
+    case "CREATE_ORDERS_DATA":
       return {
-        ...(state + action.payload),
+        ...state, loading: false, orders: action.payload
       };
     case "remove_order":
       return {

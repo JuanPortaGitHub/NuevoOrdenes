@@ -5,7 +5,7 @@ export const clickMenuOpen = value => ({
     newValue: value
 });
 
-export const addOrder = (order) =>{
+export const ADD_ORDER = (order) =>{
 
     return (dispatch) =>{
         dispatch({
@@ -15,12 +15,22 @@ export const addOrder = (order) =>{
     }
 }
 
-export const filterOrder = (order) =>{
+export const FILTER_ORDER = (order) =>{
 
     return (dispatch) =>{
         dispatch({
             type: "filterOrder",
             payload: order
+        })
+    }
+}
+
+export const CREATE_ORDERS_DATA = (data) =>{
+console.log(data)
+    return (dispatch) =>{
+        dispatch({
+            type: "CREATE_ORDERS_DATA",
+            payload: data
         })
     }
 }

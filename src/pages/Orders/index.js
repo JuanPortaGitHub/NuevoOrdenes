@@ -12,31 +12,28 @@ import PageHeading from "../../components/PageHeading";
 import { statusBadge } from "../../utils/statusBadge";
 
 export const Orders = () => {
-  const [loading, setLoading] = useState(false);
-  const [orders, setOrders] = useState([]);
-
-  const state = useSelector((state) => state);
-  console.log('state', state)
-
+  
+  const {orders, loading} = useSelector((state) => state.orders);
+ 
   const dispatch = useDispatch()
   const AC = bindActionCreators(actionCreators, dispatch)
   console.log('Action Creators', AC)
 
-  const getOrders = () => {
-    setLoading(true);
-    axios
+  const  getOrders = async () => {    
+    
+    await axios
       .get(url)
       .then((res) => {
         const { orders } = res.data;
-        setOrders(orders.data);
-        setLoading(false);
+        dispatch(AC.CREATE_ORDERS_DATA(orders.data));        
       })
       .catch((error) => {
         return error;
       });
+      
+
   };
   useEffect(() => {
-    
     getOrders();
   }, []);
 

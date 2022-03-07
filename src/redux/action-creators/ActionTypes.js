@@ -11,4 +11,6 @@ export const CLICK_OPEN_MENU = 'CLICK_OPEN_MENU';
 export const ADD_CLIENT = 'ADD_CLIENT'
 export const REMOVE_CLIENT = 'REMOVE_CLIENT'
 export const FILTER_CLIENT = 'FILTER_CLIENT'
+export const CREATE_ORDERS_DATA = 'CREATE_ORDERS_DATA'
+
 

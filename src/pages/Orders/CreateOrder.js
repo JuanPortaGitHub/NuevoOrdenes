@@ -20,6 +20,27 @@ export const CreateOrder = () => {
     console.log(JSON.stringify(data, null, 2));
   };
 
+
+  // const getCreateOrders = () => {
+  //   setLoading(true);
+  //   axios
+  //     .get('http://panelordenes.test/ordenes/create')
+  //     .then((res) => {
+  //       console.log(res)
+  //       const { areas, condivas, confirmacions } = res.data;
+  //       console.log(areas, condivas, confirmacions)
+  //       setOrders(orders.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       return error;
+  //     });
+  // };
+  // useEffect(() => {
+    
+  //   getCreateOrders();
+  // }, []);
+
   return (
     <div>
       {/* <!-- Page Wrapper --> */}
