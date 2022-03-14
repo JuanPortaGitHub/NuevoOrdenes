@@ -1,5 +1,5 @@
 // import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -8,40 +8,45 @@ import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
 import axios from "axios";
+import Select from "react-select";
 
 export const CreateOrder = () => {
+  const [selectedClient, setSelectedClient] = useState({
+    id: "",
+    apellido: "",
+    nombre: "",
+    celular: "",
+    condicion: "",
+    dnicuit: "",
+    telefono: "",
+    mail: "",
+  });
   const dispatch = useDispatch();
   const AC = bindActionCreators(actionCreators, dispatch);
   console.log("Action Creators", AC);
   const {
     areas,
-    condivas,
-    confirmacions,
     estadoderepuestos,
     estados,
-    fechaentrega,
-    passwordot,
     sucursales,
     tecnicos,
     tipoequipos,
+    clients,
   } = useSelector((state) => state.orders.data);
-  const state = useSelector((state) => state.orders.data);
+  // const state = useSelector((state) => state.orders.data);
   const { loading } = useSelector((state) => state.orders);
-  console.log(sucursales)
-  // const validationSchema = ...
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
-  } = useForm({
-    // resolver: yupResolver(validationSchema)
-  });
+  } = useForm({});
 
   const onSubmit = (data) => {
     console.log(data);
   };
-
+  console.log("clients", clients);
   const fetchCreateOrdersData = async () => {
     await axios
       .get("http://panelordenes.test/ordenes/create")
@@ -53,9 +58,12 @@ export const CreateOrder = () => {
         return error;
       });
   };
+
   useEffect(() => {
     fetchCreateOrdersData();
   }, []);
+
+  // const clientSelected = { id: '', apellido: '', nombre: '', celular: '', condicionIva: '', cuitDni: '', telefono: '', mail: '' },
 
   return (
     <div>
@@ -115,13 +123,13 @@ export const CreateOrder = () => {
                                 Buscar Cliente
                               </label>
                               <div className="col-sm-10">
-                                <input
-                                  {...register("busquedacliente")}
-                                  name="busquedacliente"
-                                  id="busquedacliente"
-                                  type="text"
-                                  className="form-control form-control-sm"
+                                <Select
                                   placeholder="Busca por DNI/CUIT o apellido de cliente ..."
+                                  options={clients}
+                                  onChange={(client) => {
+                                    setValue("idclient", client.id);
+                                    setSelectedClient(client);
+                                  }}
                                 />
                               </div>
                             </div>
@@ -135,12 +143,13 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("apellidocliente")}
                                   name="apellidocliente"
                                   id="apellidocliente"
                                   type="text"
                                   className="form-control form-control-sm"
-                                  placeholder="Apellido ..."
+                                  placeholder={
+                                    selectedClient.nombre || "Apellido ..."
+                                  }
                                   readOnly
                                   required
                                 />
@@ -165,6 +174,8 @@ export const CreateOrder = () => {
                                   type="text"
                                   className="form-control form-control-sm"
                                   placeholder="ID ..."
+                                  // value={selectedClient.id}
+                                  required
                                 />
                               </div>
                             </div>
@@ -178,14 +189,14 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("nombrecliente")}
                                   name="nombrecliente"
                                   id="nombrecliente"
                                   type="text"
                                   className="form-control form-control-sm"
-                                  placeholder="Nombre ..."
+                                  placeholder={
+                                    selectedClient.nombre || "Nombre ..."
+                                  }
                                   readOnly
-                                  required
                                 />
                               </div>
                             </div>
@@ -198,14 +209,14 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("celularcliente")}
                                   name="celularcliente"
                                   id="celularcliente"
                                   type="text"
                                   className="form-control form-control-sm"
-                                  placeholder="Celular ..."
+                                  placeholder={
+                                    selectedClient.celular || "Celular ..."
+                                  }
                                   readOnly
-                                  required
                                 />
                               </div>
                             </div>
@@ -218,13 +229,15 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("condivaclient")}
                                   name="condivaclient"
                                   id="condivaclient"
                                   type="text"
                                   className="form-control form-control-sm"
+                                  placeholder={
+                                    selectedClient.condicion ||
+                                    "Condición IVA ..."
+                                  }
                                   readOnly
-                                  required
                                 />
                               </div>
                             </div>
@@ -237,13 +250,14 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("cuitcliente")}
                                   name="cuitcliente"
                                   id="cuitcliente"
                                   type="text"
                                   className="form-control form-control-sm"
+                                  placeholder={
+                                    selectedClient.dnicuit || "CUIT / DNI ..."
+                                  }
                                   readOnly
-                                  required
                                 />
                               </div>
                             </div>
@@ -257,14 +271,14 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("telefonocliente")}
                                   name="telefonocliente"
                                   id="telefonocliente"
                                   type="text"
                                   className="form-control form-control-sm"
-                                  placeholder="Telefono ..."
+                                  placeholder={
+                                    selectedClient.telefono || "Telefono ..."
+                                  }
                                   readOnly
-                                  required
                                 />
                               </div>
                             </div>
@@ -277,12 +291,13 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <input
-                                  {...register("mailcliente")}
                                   name="mailcliente"
                                   id="mailcliente"
                                   type="email"
                                   className="form-control form-control-sm"
-                                  placeholder="Mail ..."
+                                  placeholder={
+                                    selectedClient.mail || "Mail ..."
+                                  }
                                   readOnly
                                 />
                               </div>
@@ -336,9 +351,13 @@ export const CreateOrder = () => {
                                   required
                                 >
                                   <option value=""></option>
-                                  {tipoequipos.map((tipoEquipo, i) =>{
-                                        return <option key={i}  value={tipoEquipo.id}>{tipoEquipo.tipodeequipo}</option>
-                                      })}
+                                  {tipoequipos.map((tipoEquipo, i) => {
+                                    return (
+                                      <option key={i} value={tipoEquipo.id}>
+                                        {tipoEquipo.tipodeequipo}
+                                      </option>
+                                    );
+                                  })}
                                 </select>
                               </div>
                             </div>
@@ -451,8 +470,12 @@ export const CreateOrder = () => {
                                       required
                                     >
                                       <option value=""></option>
-                                      {sucursales.map((sucursal, i) =>{
-                                        return <option key={i}  value={sucursal.id}>{sucursal.sucursal}</option>
+                                      {sucursales.map((sucursal, i) => {
+                                        return (
+                                          <option key={i} value={sucursal.id}>
+                                            {sucursal.sucursal}
+                                          </option>
+                                        );
                                       })}
                                     </select>
                                   </div>
@@ -471,8 +494,12 @@ export const CreateOrder = () => {
                                       required
                                     >
                                       <option value=""></option>
-                                      {areas.map((area, i) =>{
-                                        return <option key={i}  value={area.id}>{area.areas}</option>
+                                      {areas.map((area, i) => {
+                                        return (
+                                          <option key={i} value={area.id}>
+                                            {area.areas}
+                                          </option>
+                                        );
                                       })}
                                     </select>
                                   </div>
@@ -491,8 +518,12 @@ export const CreateOrder = () => {
                                       required
                                     >
                                       <option value=""></option>
-                                      {tecnicos.map((tecnico, i) =>{
-                                        return <option key={i}  value={tecnico.id}>{tecnico.name}</option>
+                                      {tecnicos.map((tecnico, i) => {
+                                        return (
+                                          <option key={i} value={tecnico.id}>
+                                            {tecnico.name}
+                                          </option>
+                                        );
                                       })}
                                     </select>
                                   </div>
@@ -511,9 +542,18 @@ export const CreateOrder = () => {
                                       id="necesitarepuesto"
                                       required
                                     >
-                                       {estadoderepuestos.map((estadoRepuesto, i) =>{
-                                        return <option key={i}  value={estadoRepuesto.id}>{estadoRepuesto.estadoderepuesto}</option>
-                                      })}
+                                      {estadoderepuestos.map(
+                                        (estadoRepuesto, i) => {
+                                          return (
+                                            <option
+                                              key={i}
+                                              value={estadoRepuesto.id}
+                                            >
+                                              {estadoRepuesto.estadoderepuesto}
+                                            </option>
+                                          );
+                                        }
+                                      )}
                                       {/* <option value="{{ $estadoderepuestos[0]->id }}">{{ $estadoderepuestos[0]->estadoderepuesto }}</option>
                                         <option value="{{ $estadoderepuestos[1]->id }}">{{ $estadoderepuestos[1]->estadoderepuesto }}</option> */}
                                     </select>
@@ -550,8 +590,12 @@ export const CreateOrder = () => {
                                       placeholder="Indicar estado de la orden ..."
                                       required
                                     >
-                                      {estados.map((estado, i) =>{
-                                        return <option key={i}  value={estado.id}>{estado.estadoot}</option>
+                                      {estados.map((estado, i) => {
+                                        return (
+                                          <option key={i} value={estado.id}>
+                                            {estado.estadoot}
+                                          </option>
+                                        );
                                       })}
                                       {/* <option value="{{ $estados[0]->id }}">{{ $estados[0]->estadoot }}</option>
                                     <option value="{{ $estados[1]->id }}">{{ $estados[1]->estadoot }}</option>
