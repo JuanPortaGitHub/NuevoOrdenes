@@ -9,6 +9,7 @@ import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
 import axios from "axios";
 import Select from "react-select";
+import dayjs from 'dayjs';
 
 export const CreateOrder = () => {
   const [selectedClient, setSelectedClient] = useState({
@@ -44,9 +45,8 @@ export const CreateOrder = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    console.log(data);
+    createNewOrder(data)
   };
-  console.log("clients", clients);
   const fetchCreateOrdersData = async () => {
     await axios
       .get("http://panelordenes.test/ordenes/create")
@@ -59,11 +59,20 @@ export const CreateOrder = () => {
       });
   };
 
+  const createNewOrder = async (data) => {
+    axios.post(`http://panelordenes.test/ordenes`, data)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
+
   useEffect(() => {
     fetchCreateOrdersData();
   }, []);
-
-  // const clientSelected = { id: '', apellido: '', nombre: '', celular: '', condicionIva: '', cuitDni: '', telefono: '', mail: '' },
 
   return (
     <div>
@@ -174,7 +183,6 @@ export const CreateOrder = () => {
                                   type="text"
                                   className="form-control form-control-sm"
                                   placeholder="ID ..."
-                                  // value={selectedClient.id}
                                   required
                                 />
                               </div>
@@ -410,7 +418,6 @@ export const CreateOrder = () => {
                                   {...register("bateria")}
                                   className="bateria"
                                   type="checkbox"
-                                  className="form-check-input"
                                   id="bateria"
                                 />
                                 <label className="form-control-sm">
@@ -611,9 +618,10 @@ export const CreateOrder = () => {
                                     <input
                                       {...register("fechaingreso")}
                                       name="fechaingreso"
-                                      type="datetime-local"
+                                      // type="datetime-local"
                                       className="form-control form-control-sm"
                                       id="fechaingreso"
+                                      defaultValue={dayjs().format('DD/MM/YYYY HH:mm') }
                                       readOnly
                                       required
                                     />
@@ -630,8 +638,7 @@ export const CreateOrder = () => {
                                       type="date"
                                       className="form-control form-control-sm"
                                       id="fechaentrega"
-                                      required
-                                      required
+                                      required                                      
                                     />
                                   </div>
                                 </div>

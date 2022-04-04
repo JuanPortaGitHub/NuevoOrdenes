@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { url } from "../../api/axios";
-// import { getOrders } from "../../api/services/ordersAxios";
+import { getOrders } from "../../api/services/ordersAxios";
 import { bindActionCreators } from "redux";
 import * as actionCreators from "../../redux/action-creators/index"
 import Sidebar from "../../components/Navigation/Sidebar";
@@ -12,8 +12,7 @@ import { statusBadge } from "../../utils/statusBadge";
 
 export const Orders = () => {
   
-  const {orders, loading} = useSelector((state) => state.orders);
- 
+  const {data, loading} = useSelector((state) => state.orders);
   const dispatch = useDispatch()
   const AC = bindActionCreators(actionCreators, dispatch)
   console.log('Action Creators', AC)
@@ -87,7 +86,7 @@ export const Orders = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {orders.map((order, i) => {
+                      {data.map((order, i) => {
                         return (
                           <tr key={i}>
                             <th scope="row">

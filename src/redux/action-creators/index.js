@@ -36,7 +36,7 @@ console.log(data)
 }
 
 export const FETCH_ORDERS = (data) =>{
-    console.log(data)
+    console.log('datafetched', data)
         return (dispatch) =>{
             dispatch({
                 type: "FETCH_ORDERS",
