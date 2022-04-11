@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
-import axios from "axios";
 import Select from "react-select";
 import dayjs from 'dayjs';
 import { fetchCreateOrdersData } from "../../api/services/ordersAxios";
@@ -33,6 +32,7 @@ export const CreateOrder = () => {
     tecnicos,
     tipoequipos,
     clients,
+    passwordot    
   } = useSelector((state) => state.orders.createData);
   const { loading } = useSelector((state) => state.orders);
   const {
@@ -42,29 +42,17 @@ export const CreateOrder = () => {
     setValue,
     formState: { errors },
   } = useForm({});
+  const [formData, setFormData] = useState(null)
 
   const onSubmit = (data) => {
     console.log('submitee', data)
-    createNewOrder(data)
+    setModalPinOpen(true)
+    setFormData(data)
+    
   };
  
 
-  const createNewOrder = async (data) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-    },
-    }
-    console.log('data antes axios', data)
-    axios.post(`http://panelordenes.test/ordenes`, data, config)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        return error;
-      });
-  };
+  
 
 
   useEffect(() => {
@@ -104,7 +92,7 @@ export const CreateOrder = () => {
                 // <!-- Formulario -->
                 <div className="register-form">
                   <form onSubmit={handleSubmit(onSubmit)} >
-                  <PinModal open={modalPinOpen} register={register}/> 
+                  <PinModal open={modalPinOpen} formData={formData}/> 
                     <div className="row" style={{ marginBottom: "20px" }}>
                       {/* <!-- Seccion Titular Cliente --> */}
                       <div className="col-sm-6 .col-xs-12">
@@ -417,7 +405,7 @@ export const CreateOrder = () => {
                               <div className="form-check">
                                 <input
                                   {...register("bateria")}
-                                  className="bateria"
+                                  className="form-check-input"
                                   type="checkbox"
                                   id="bateria"
                                 />
@@ -619,7 +607,7 @@ export const CreateOrder = () => {
                                     <input
                                       {...register("fechaingreso")}
                                       name="fechaingreso"
-                                      // type="datetime-local"
+                                      type="datetime"
                                       className="form-control form-control-sm"
                                       id="fechaingreso"
                                       defaultValue={dayjs().format('DD/MM/YYYY HH:mm') }
@@ -654,6 +642,7 @@ export const CreateOrder = () => {
                                       type="text"
                                       className="form-control form-control-sm"
                                       id="passwordot"
+                                      value={passwordot}
                                       readOnly
                                       required
                                     />
@@ -705,7 +694,7 @@ export const CreateOrder = () => {
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <button onClick={()=> setModalPinOpen(true)} className="btn btn-primary">
+                      <button type="submit" className="btn btn-primary">
                         Ingresar
                       </button>
                       <button

@@ -2,11 +2,11 @@ import axios from "axios";
 import { url } from "../axios";
 import * as actionCreators from "../../redux/action-creators/index"
 
-  export const getOrders = () => async dispatch => {
+  export const getOrders = (pagNumber = 1) => async dispatch => {
     console.log('entre aca')
 
     await axios
-      .get(url)
+      .get(url + `?page=${pagNumber}`)
       .then((res) => {
         const { orders } = res.data;
         dispatch(actionCreators.FETCH_ORDERS(orders.data));        
@@ -21,7 +21,7 @@ import * as actionCreators from "../../redux/action-creators/index"
 }
 
 export const fetchCreateOrdersData = () => async dispatch => {
-  console.log('entre aca')
+  console.log('entre aca2')
   await axios
     .get("http://panelordenes.test/ordenes/create")
     .then((res) => {
