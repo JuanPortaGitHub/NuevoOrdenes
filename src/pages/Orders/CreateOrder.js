@@ -2,16 +2,18 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as actionCreators from "../../redux/action-creators/index";
 import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
 import axios from "axios";
 import Select from "react-select";
 import dayjs from 'dayjs';
+import { fetchCreateOrdersData } from "../../api/services/ordersAxios";
+import {PinModal} from "../../components/Modals/PinModal";
+
 
 export const CreateOrder = () => {
+  const [modalPinOpen, setModalPinOpen] = useState(false)
   const [selectedClient, setSelectedClient] = useState({
     id: "",
     apellido: "",
@@ -23,8 +25,6 @@ export const CreateOrder = () => {
     mail: "",
   });
   const dispatch = useDispatch();
-  const AC = bindActionCreators(actionCreators, dispatch);
-  console.log("Action Creators", AC);
   const {
     areas,
     estadoderepuestos,
@@ -33,8 +33,7 @@ export const CreateOrder = () => {
     tecnicos,
     tipoequipos,
     clients,
-  } = useSelector((state) => state.orders.data);
-  // const state = useSelector((state) => state.orders.data);
+  } = useSelector((state) => state.orders.createData);
   const { loading } = useSelector((state) => state.orders);
   const {
     register,
@@ -45,22 +44,19 @@ export const CreateOrder = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
+    console.log('submitee', data)
     createNewOrder(data)
   };
-  const fetchCreateOrdersData = async () => {
-    await axios
-      .get("http://panelordenes.test/ordenes/create")
-      .then((res) => {
-        const data = res.data;
-        dispatch(AC.CREATE_ORDERS_DATA(data));
-      })
-      .catch((error) => {
-        return error;
-      });
-  };
+ 
 
   const createNewOrder = async (data) => {
-    axios.post(`http://panelordenes.test/ordenes`, data)
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+    },
+    }
+    console.log('data antes axios', data)
+    axios.post(`http://panelordenes.test/ordenes`, data, config)
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -70,14 +66,17 @@ export const CreateOrder = () => {
       });
   };
 
+
   useEffect(() => {
-    fetchCreateOrdersData();
+    dispatch(fetchCreateOrdersData());
   }, []);
 
   return (
+   
     <div>
       {/* <!-- Page Wrapper --> */}
       <div id="wrapper">
+      
         {/* <!-- Sidebar --> */}
         <Sidebar />
         {/* <!-- End of Sidebar --> */}
@@ -104,7 +103,8 @@ export const CreateOrder = () => {
               ) : (
                 // <!-- Formulario -->
                 <div className="register-form">
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  <form onSubmit={handleSubmit(onSubmit)} >
+                  <PinModal open={modalPinOpen} register={register}/> 
                     <div className="row" style={{ marginBottom: "20px" }}>
                       {/* <!-- Seccion Titular Cliente --> */}
                       <div className="col-sm-6 .col-xs-12">
@@ -183,7 +183,7 @@ export const CreateOrder = () => {
                                   type="text"
                                   className="form-control form-control-sm"
                                   placeholder="ID ..."
-                                  required
+                                  
                                 />
                               </div>
                             </div>
@@ -353,6 +353,7 @@ export const CreateOrder = () => {
                               </label>
                               <div className="col-sm-10">
                                 <select
+                                {...register("tipodeequipo_id")}
                                   name="tipodeequipo_id"
                                   id="tipodeequipo_id"
                                   className="form-control form-control-sm"
@@ -590,7 +591,7 @@ export const CreateOrder = () => {
                                   </label>
                                   <div className="col-sm-10">
                                     <select
-                                      {...register("estado")}
+                                      {...register("estado_id")}
                                       name="estado"
                                       className="form-control form-control-sm"
                                       id="estado"
@@ -698,15 +699,14 @@ export const CreateOrder = () => {
                     </div>
 
                     <div
-                      className="row"
                       style={{
                         marginBottom: "20px",
                         display: "flex",
                         justifyContent: "space-evenly",
                       }}
                     >
-                      <button type="submit" className="btn btn-primary">
-                        Register
+                      <button onClick={()=> setModalPinOpen(true)} className="btn btn-primary">
+                        Ingresar
                       </button>
                       <button
                         type="reset"

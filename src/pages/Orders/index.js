@@ -1,38 +1,17 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { url } from "../../api/axios";
 import { getOrders } from "../../api/services/ordersAxios";
-import { bindActionCreators } from "redux";
-import * as actionCreators from "../../redux/action-creators/index"
 import Sidebar from "../../components/Navigation/Sidebar";
 import Topbar from "../../components/Navigation/Topbar";
 import PageHeading from "../../components/PageHeading";
 import { statusBadge } from "../../utils/statusBadge";
 
 export const Orders = () => {
-  
-  const {data, loading} = useSelector((state) => state.orders);
-  const dispatch = useDispatch()
-  const AC = bindActionCreators(actionCreators, dispatch)
-  console.log('Action Creators', AC)
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.orders);
 
-  const  getOrders = async () => {    
-    
-    await axios
-      .get(url)
-      .then((res) => {
-        const { orders } = res.data;
-        dispatch(AC.FETCH_ORDERS(orders.data));        
-      })
-      .catch((error) => {
-        return error;
-      });
-      
-
-  };
   useEffect(() => {
-    getOrders();
+    dispatch(getOrders());
   }, []);
 
   return (
@@ -57,14 +36,22 @@ export const Orders = () => {
               <PageHeading title="Listado Ordenes de Trabajo" />
 
               {/* <!-- Content Row --> */}
-              {loading ? (
+              {loading && (
                 <>
                   <h2>Cargando Ordenes</h2>
                   <div className="spinner-border m-5" role="status">
                     <span className="sr-only">Cargando Ordenes...</span>
                   </div>
                 </>
-              ) : (
+              )}
+              {error && (
+                <>
+                  <h2 style={{ color: "red" }}>
+                    <b>Hubo un error en carga de ordenes</b>
+                  </h2>
+                </>
+              )}
+              {data && (
                 <div className="table-responsive">
                   <table
                     className="table table-striped"
@@ -98,7 +85,9 @@ export const Orders = () => {
                             <td>{order.area}</td>
                             <td>{order.apellido}</td>
                             <td>{order.nombre}</td>
-                            <td style={{ textAlign: "center" }}>{statusBadge(order.estadoot)}</td>
+                            <td style={{ textAlign: "center" }}>
+                              {statusBadge(order.estadoot)}
+                            </td>
                             <td>{order.fechaingreso}</td>
                             <td>{order.fechaentrega}</td>
                             <td>{order.tipodeequipo}</td>

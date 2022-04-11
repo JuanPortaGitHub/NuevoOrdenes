@@ -26,7 +26,6 @@ export const FILTER_ORDER = (order) =>{
 }
 
 export const CREATE_ORDERS_DATA = (data) =>{
-console.log(data)
     return (dispatch) =>{
         dispatch({
             type: "CREATE_ORDERS_DATA",
@@ -36,7 +35,6 @@ console.log(data)
 }
 
 export const FETCH_ORDERS = (data) =>{
-    console.log('datafetched', data)
         return (dispatch) =>{
             dispatch({
                 type: "FETCH_ORDERS",
