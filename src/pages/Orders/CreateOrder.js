@@ -610,7 +610,7 @@ export const CreateOrder = () => {
                                       type="datetime"
                                       className="form-control form-control-sm"
                                       id="fechaingreso"
-                                      defaultValue={dayjs().format('DD/MM/YYYY HH:mm') }
+                                      defaultValue={dayjs().format('DD-MM-YYYY H:mm:s') }
                                       readOnly
                                       required
                                     />
