@@ -4,10 +4,14 @@ import { Modal } from "react-bootstrap";
 
 export const PinModal = ({ open, formData }) => {
   const [errorMsg, setErrorMsg] = useState(null);
-  const [statusMsg, setStatusMsg] = useState(true);
+  const [statusMsg, setStatusMsg] = useState(null);
   const [enabledPin, setEnabledPin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
+
+  const refreshPage = () => {
+    window.location.reload(false);
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -19,6 +23,7 @@ export const PinModal = ({ open, formData }) => {
     }
   };
 
+  
   const createNewOrder = async (formDataWithPin) => {
     
     console.log("data antes axios", formDataWithPin);
@@ -103,6 +108,7 @@ export const PinModal = ({ open, formData }) => {
                       type="button"
                       className="btn btn-danger"
                       style={{ marginLeft: "20px" }}
+                      onClick={refreshPage}
                     >
                       <b>Cargar Otra Orden</b>
                     </button>
