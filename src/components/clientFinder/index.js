@@ -3,11 +3,8 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-export const ClientSection = ({register}) => {
+export const ClientSection = ({register, setValue}) => {
   const { clients } = useSelector((state) => state.orders.createData);
-  const {
-    setValue,    
-  } = useForm({});
   const [selectedClient, setSelectedClient] = useState({
     id: "",
     apellido: "",
@@ -46,8 +43,8 @@ export const ClientSection = ({register}) => {
                 placeholder="Busca por DNI/CUIT o apellido de cliente ..."
                 options={clients}
                 onChange={(client) => {
-                  setValue("idclient", client.id);
-                  setSelectedClient(client);
+                    setSelectedClient(client);                    
+                    setValue("idclient", client.id);
                 }}
               />
             </div>
@@ -71,7 +68,9 @@ export const ClientSection = ({register}) => {
               />
             </div>
           </div>
-          <div className="form-group row" style={{ display: "none" }}>
+          <div className="form-group row" 
+          style={{ display: "none" }}
+          >
             <label
               name="idclient"
               id="idclient"
@@ -210,6 +209,7 @@ export const ClientSection = ({register}) => {
                 data-toggle="modal"
                 data-target=".cargacliente"
                 style={{ float: "right" }}
+                onClick={() => console.log(selectedClient)}
               >
                 <b>Carga cliente nuevo</b>
               </button>

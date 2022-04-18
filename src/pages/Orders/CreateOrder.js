@@ -17,7 +17,8 @@ export const CreateOrder = () => {
   const { loading } = useSelector((state) => state.orders);
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    setValue
   } = useForm({});
   const [formData, setFormData] = useState(null);
   const onSubmit = (data) => {
@@ -51,7 +52,7 @@ export const CreateOrder = () => {
                   <PinModal open={modalPinOpen} formData={formData} />
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row" style={{ marginBottom: "20px" }}>
-                      <ClientSection register={register}/>
+                      <ClientSection register={register} setValue={setValue}/>
                       <EquipmentSection register={register}/>
                     </div>
                     <div className="row" style={{ marginBottom: "20px" }}>
@@ -70,7 +71,6 @@ export const CreateOrder = () => {
                       <button
                         type="reset"
                         className="btn btn-danger"
-                        // onClick={reset}
                         style={{ marginLeft: "20px" }}
                       >
                         Reset
